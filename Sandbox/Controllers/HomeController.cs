@@ -12,7 +12,8 @@ namespace Sandbox.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel { Title = "Sandbox" };
+            return View(homeViewModel);
         }
 
         public IActionResult About()
