@@ -4,15 +4,22 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Sandbox.Models;
 
 namespace Sandbox.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IOptions<ReleaseOptions> _config;
+
+        public HomeController(IOptions<ReleaseOptions> config)
+        {
+            _config = config;
+        }
         public IActionResult Index()
         {
-            var homeViewModel = new HomeViewModel { Title = "Sandbox" };
+            var homeViewModel = new HomeViewModel { Title = "Sandbox", Release = _config.Value.Version };
             return View(homeViewModel);
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sandbox.Models;
 
 namespace Sandbox
 {
@@ -30,7 +31,7 @@ namespace Sandbox
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.Configure<ReleaseOptions>(Configuration.GetSection("Release"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
