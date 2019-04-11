@@ -15,7 +15,13 @@ namespace Sandbox.UnitTests
         public void Setup()
         {
             var mockConfig = new Mock<IOptions<ReleaseOptions>>();
-            mockConfig.Setup(x => x.Value).Returns(new ReleaseOptions {Version = "some version"});
+            mockConfig.Setup(x => x.Value).Returns(
+                new ReleaseOptions
+                {
+                    Version = "some version",
+                    CustomOctopusVariable = "some custom variable value"
+                }
+                );
             _homeController = new HomeController(mockConfig.Object);
         }
 
@@ -35,6 +41,15 @@ namespace Sandbox.UnitTests
             Assert.That(viewResult, Is.Not.Null);
             var homeViewModel = (HomeViewModel)viewResult.Model;
             Assert.That(homeViewModel.Release, Is.EqualTo("some version"));
+        }
+
+        [Test]
+        public void Should_set_release_custom_octopus_variable_for_the_homepage()
+        {
+            var viewResult = _homeController.Index() as ViewResult;
+            Assert.That(viewResult, Is.Not.Null);
+            var homeViewModel = (HomeViewModel)viewResult.Model;
+            Assert.That(homeViewModel.CustomOctopusVariable, Is.EqualTo("some custom variable value"));
         }
     }
 }

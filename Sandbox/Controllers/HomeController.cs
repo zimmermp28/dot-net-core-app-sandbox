@@ -19,7 +19,12 @@ namespace Sandbox.Controllers
         }
         public IActionResult Index()
         {
-            var homeViewModel = new HomeViewModel { Title = "Sandbox", Release = _config.Value.Version };
+            var homeViewModel = new HomeViewModel
+            {
+                Title = "Sandbox",
+                Release = _config.Value.Version,
+                CustomOctopusVariable = _config.Value.CustomOctopusVariable
+            };
             return View(homeViewModel);
         }
 
